@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">newsfeedapp</string>
+    <string name="article_headline">NSW weather live: Warragamba Dam set to spill over as Sydney residents urged to stay home amid flooding, heavy rain</string>
+    <string name="article_date1">2021-03-16</string>
+    <string name="article_date2">T08:00:18Z</string>
+    <string name="title">News or Topics : </string>
+    <string name="date">Published Date</string>
+    <string name="no_news">No News found.</string>
+    <string name="no_internet_connection">No internet connection.</string>
+
+</resources>
