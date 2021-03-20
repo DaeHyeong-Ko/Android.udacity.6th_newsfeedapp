@@ -32,11 +32,10 @@ public class QueryUtils {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        try{
+        try {
             jsonresponse = makehttpresponse(url);
-        }
-        catch(IOException e){
-            Log.e(LOG_TAG,"Problem making the Http request.",e);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Problem making the Http request.", e);
         }
         List<newsfeedapp> newsfeedapps = extractFeatureFromJson(jsonresponse);
         return newsfeedapps;
@@ -99,30 +98,39 @@ public class QueryUtils {
     }
 
     private static ArrayList<newsfeedapp> extractFeatureFromJson(String newsJson) {
-        if(TextUtils.isEmpty(newsJson)){
+        if (TextUtils.isEmpty(newsJson)) {
             return null;
         }
-        ArrayList<newsfeedapp> newsJsons = new ArrayList<newsfeedapp>();
-        try{
+        ArrayList<newsfeedapp> newsJsons = new ArrayList<>();
+        try {
             JSONObject baseJsonObject = new JSONObject(newsJson);
             JSONObject firstArrayObject = baseJsonObject.getJSONObject("response");
             JSONArray jsonArray = firstArrayObject.getJSONArray("results");
-            for(int i=0; i<jsonArray.length() ;i++){
+
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject currentJSON = jsonArray.getJSONObject(i);
-                String webpublisheddate =currentJSON.getString("webPublicationDate");
-                String webUrl =currentJSON.getString("webUrl");
-                String webTitle =currentJSON.getString("webTitle");
-                newsfeedapp Newsfeedapp = new newsfeedapp(webTitle,webpublisheddate,webUrl);
+
+                String sectionName = currentJSON.getString("sectionName");
+                String webTitle = currentJSON.getString("webTitle");
+                String webpublisheddate = currentJSON.getString("webPublicationDate");
+                String webUrl = currentJSON.getString("webUrl");
+
+                String authorName = null;
+                if (currentJSON.has("tags")) {
+                    JSONArray currentJSONtags = currentJSON.getJSONArray("tags");
+                    if (currentJSONtags.length() != 0) {
+                        JSONObject firstNameChecker = currentJSONtags.getJSONObject(0);
+                        authorName = firstNameChecker.getString("webTitle");
+                    }
+                }
+
+                newsfeedapp Newsfeedapp = new newsfeedapp(sectionName, authorName, webTitle, webpublisheddate, webUrl);
                 newsJsons.add(Newsfeedapp);
             }
-        }
-        catch(JSONException e)
-        {
-           Log.e("QueryUtils","Problem parsing the newsJson results",e);
+        } catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the newsJson results", e);
         }
         return newsJsons;
     }
-
-
 }
 

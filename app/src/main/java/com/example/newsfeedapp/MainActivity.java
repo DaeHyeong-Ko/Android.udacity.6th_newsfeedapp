@@ -15,16 +15,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<newsfeedapp>>{
 
-    private static final String guardianapi ="https://content.guardianapis.com/search?show-tags=contributor&show-fields=thumbnail&api-key=d24ca8ad-39d3-4387-9e33-0887f76956d0";
+    private static final String guardianapi ="https://content.guardianapis.com/search";
     private newsfeedappAdapter mAdapter;
     private static final int newsapp_LOADER_ID = 1;
     private TextView mEmptyStateTextView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +40,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
         listview.setEmptyView(mEmptyStateTextView);
 
-        ConnectivityManager CnMng = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo NIF = CnMng.getActiveNetworkInfo();
+        ConnectivityManager connectiVityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInformation = connectiVityManager.getActiveNetworkInfo();
 
-        if(NIF != null && NIF.isConnected()){
+        if(networkInformation != null && networkInformation.isConnected()){
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(newsapp_LOADER_ID, null, this);
         }
@@ -66,7 +69,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<newsfeedapp>> onCreateLoader(int i, Bundle bundle){
-        return new newsfeedappLoader(this, guardianapi);
+        Uri guardian_API = Uri.parse(guardianapi);
+        Uri.Builder uri_Builder = guardian_API.buildUpon();
+        uri_Builder.appendQueryParameter("show-tags","contributor");
+        uri_Builder.appendQueryParameter("api-key","test");
+
+        return new newsfeedappLoader(this, uri_Builder.toString());
     }
 
     @Override

@@ -10,16 +10,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#CFD8DC"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="4dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp">
+        android:layout_marginRight="4dp"
+        android:background="#CFD8DC"
+        android:orientation="horizontal">
 
         <TextView
+            style="@style/published_date_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/published_date_title"
             android:text="@string/date" />
 
         <TextView
@@ -36,14 +36,15 @@
             android:layout_height="wrap_content"
             android:text="@string/article_date2" />
     </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:background="#ECEFF1"
-        android:layout_marginTop="1dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp">
+        android:orientation="vertical">
 
         <TextView
             style="@style/item_list_title"
@@ -59,5 +60,48 @@
             android:text="@string/article_headline" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#CFD8DC"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp">
+
+        <TextView
+            style="@style/item_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/section" />
+
+        <TextView
+            android:id="@+id/section_name"
+            style="@style/item_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/section_name" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#ECEFF1"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp">
+
+        <TextView
+            style="@style/item_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/author" />
+
+        <TextView
+            android:id="@+id/author_name"
+            style="@style/item_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/author_name" />
+    </LinearLayout>
 
 </LinearLayout>

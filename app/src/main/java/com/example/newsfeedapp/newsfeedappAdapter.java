@@ -11,39 +11,45 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class newsfeedappAdapter extends ArrayAdapter<newsfeedapp> {
-    private static final String dateandtime_SEPARATOR = "T";
+    private static final String dateAndtime_SEPARATOR = "T";
 
-    public newsfeedappAdapter(Activity context, ArrayList<newsfeedapp> newsfeedapps){
+    public newsfeedappAdapter(Activity context, ArrayList<newsfeedapp> newsfeedapps) {
         super(context, 0, newsfeedapps);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        View listitem = convertView;
-        if(listitem == null){
-            listitem = LayoutInflater.from(getContext()).inflate(R.layout.activity_main,parent,false);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View listitemView = convertView;
+        if (listitemView == null) {
+            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.activity_main, parent, false);
         }
-        newsfeedapp newslist = getItem(position);
+        newsfeedapp newsList = getItem(position);
 
-        TextView title = (TextView) listitem.findViewById(R.id.article_title);
-        title.setText(newslist.getTitle());
+        TextView title = (TextView) listitemView.findViewById(R.id.article_title);
+        title.setText(newsList.getTitle());
 
-        String originaldate = newslist.getdate();
-        String primarydate = "";
-        String dateoffset = "";
+        String originalDate = newsList.getDate();
+        String primaryDate = "";
+        String dateOffset = "";
 
-        if(originaldate.contains(dateandtime_SEPARATOR)){
-            String[] parts = originaldate.split(dateandtime_SEPARATOR);
-            dateoffset = parts[0];
-            primarydate = dateandtime_SEPARATOR + parts[1];
+        if (originalDate.contains(dateAndtime_SEPARATOR)) {
+            String[] parts = originalDate.split(dateAndtime_SEPARATOR);
+            dateOffset = parts[0];
+            primaryDate = dateAndtime_SEPARATOR + parts[1];
         }
 
-        TextView dateobject = (TextView) listitem.findViewById(R.id.article_date1);
-        TextView timeobject = (TextView) listitem.findViewById(R.id.article_date2);
+        TextView dateobject = (TextView) listitemView.findViewById(R.id.article_date1);
+        TextView timeobject = (TextView) listitemView.findViewById(R.id.article_date2);
 
-        dateobject.setText(dateoffset);
-        timeobject.setText(primarydate);
+        dateobject.setText(dateOffset);
+        timeobject.setText(primaryDate);
 
-        return listitem;
+        TextView authorobject = (TextView) listitemView.findViewById(R.id.author_name);
+        TextView sectionobject = (TextView) listitemView.findViewById(R.id.section_name);
+
+        authorobject.setText(newsList.getAuthorName());
+        sectionobject.setText(newsList.getSectionName());
+
+        return listitemView;
     }
 }
